@@ -25,73 +25,75 @@ After successfully creating your account, click on ***API Keys*** in the left-ha
 ### 2.  Create an index.html file
 - Go to [this link](PLACEHOLDER) to download the example ***index.html*** file needed to create our search page or copy and paste it from here:
 
-> <!DOCTYPE html>
-> <html>
->   <head>
->     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
->     <style>
->       .algolia-autocomplete {
->         width: 100%;
->       }
->       .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
->         width: 100%;
->       }
->       .algolia-autocomplete .aa-hint {
->         color: #999;
->       }
->       .algolia-autocomplete .aa-dropdown-menu {
->         width: 100%;
->         background-color: #fff;
->         border: 1px solid #999;
->         border-top: none;
->       }
->       .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
->         cursor: pointer;
->         padding: 5px 4px;
->       }
->       .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
->         background-color: #B2D7FF;
->       }
->       .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
->         font-weight: bold;
->         font-style: normal;
->       }
->     </style>
->   </head>
->   <body>
->     <div class="container">
->       <div class="row">
->         <div class="col-sm-6 col-sm-offset-3">
->           <form action="#" class="form">
->             <h3>Algolia API Tutorial</h3>
->             <input class="form-control" id="search-input" name="contacts" type="text" placeholder='Search for events...' />
->           </form>
->         </div>
->       </div>
->     </div>
->
->     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
->     <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
->     <script>
->       var client = algoliasearch('YourApplicationID', 'YourAPIKey');
->       var index = client.initIndex('your_index_name');
->       autocomplete('#search-input', { hint: false }, [
->         {
->           source: autocomplete.sources.hits(index, { hitsPerPage: 5 }),
->           displayKey: 'name',
->           templates: {
->             suggestion: function(suggestion) {
->               return suggestion._highlightResult.name.value;
->             }
->           }
->         }
->       ]).on('autocomplete:selected', function(event, suggestion, dataset) {
->         console.log(suggestion, dataset);
->         alert('dataset: ' + dataset + ', ' + suggestion.name);
->       });
->     </script>
->   </body>
-> </html>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+      .algolia-autocomplete {
+        width: 100%;
+      }
+      .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+        width: 100%;
+      }
+      .algolia-autocomplete .aa-hint {
+        color: #999;
+      }
+      .algolia-autocomplete .aa-dropdown-menu {
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #999;
+        border-top: none;
+      }
+      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+        cursor: pointer;
+        padding: 5px 4px;
+      }
+      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+        background-color: #B2D7FF;
+      }
+      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+        font-weight: bold;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <form action="#" class="form">
+            <h3>Algolia API Tutorial</h3>
+            <input class="form-control" id="search-input" name="contacts" type="text" placeholder='Search for events...' />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+    <script>
+      var client = algoliasearch('YourApplicationID', 'YourAPIKey');
+      var index = client.initIndex('your_index_name');
+      autocomplete('#search-input', { hint: false }, [
+        {
+          source: autocomplete.sources.hits(index, { hitsPerPage: 5 }),
+          displayKey: 'name',
+          templates: {
+            suggestion: function(suggestion) {
+              return suggestion._highlightResult.name.value;
+            }
+          }
+        }
+      ]).on('autocomplete:selected', function(event, suggestion, dataset) {
+        console.log(suggestion, dataset);
+        alert('dataset: ' + dataset + ', ' + suggestion.name);
+      });
+    </script>
+  </body>
+</html>
+```
 
 ### 3.  Insert your API credentials
 - Grab the API credentials from the ***API Keys*** section of your Algolia dashboard and insert them into the appropriate spots in the code (`YourApplicationID` and `YourAPIKey`).
@@ -136,36 +138,38 @@ Firebase offers a completely free account for development and testing purposes. 
 ### 8.  Add your data
 - Go to [this link](PLACEHOLDER) to download the example ***mlh_member_events.json*** file needed to create our database or copy and paste it from here:
 
-> [
-> 	{
-> 		"name":"Hack the 6ix",
-> 		"date": "August 24-26",
-> 		"city": "Toronto",
-> 		"country": "Canada",
-> 		"director": "John States"
-> 	},
-> 	{
-> 		"name":"HackMTY",
-> 		"date": "August 25-26", 
-> 		"city": "Monterrey",
-> 		"country": "Mexico",
-> 		"director": "Sally Jane"
-> 	},
-> 	{
-> 		"name":"ByteHacks",
-> 		"date": "September 1-2", 
-> 		"city": "New York city",
-> 		"country": "United States of America",
-> 		"director": "Jack Doe" 
-> 	},
-> 	{
-> 		"name":"MedHacks",
-> 		"date": "September 7-9",
-> 		"city": "Baltimore",
-> 		"country": "United States of America",
-> 		"director": "Rachel Diaz"
-> 	}
-> ]
+```
+[
+	{
+		"name":"Hack the 6ix",
+		"date": "August 24-26",
+		"city": "Toronto",
+		"country": "Canada",
+		"director": "John States"
+	},
+	{
+		"name":"HackMTY",
+		"date": "August 25-26", 
+		"city": "Monterrey",
+		"country": "Mexico",
+		"director": "Sally Jane"
+	},
+	{
+		"name":"ByteHacks",
+		"date": "September 1-2", 
+		"city": "New York city",
+		"country": "United States of America",
+		"director": "Jack Doe" 
+	},
+	{
+		"name":"MedHacks",
+		"date": "September 7-9",
+		"city": "Baltimore",
+		"country": "United States of America",
+		"director": "Rachel Diaz"
+	}
+]
+```
 
 - Click on the dropdown next to ***Database*** and choose the ***Realtime Database*** option.
 - Click on the ***more*** button (the vertical ellipsis).
@@ -191,10 +195,12 @@ If all went well, you should see the example data imported into your database si
 ### 10.  Configure your environment
 - Go to [this link](PLACEHOLDER) to download the example ***.env*** file needed to set up our environment or copy and paste it from here:
 
-> ALGOLIA_APP_ID=<algolia-app-id>
-> ALGOLIA_API_KEY=<algolia-api-key>
-> ALGOLIA_INDEX_NAME='algolia-index-name'
-> FIREBASE_DATABASE_URL=https://<my-firebase-database>.firebaseio.com
+```
+ALGOLIA_APP_ID=<algolia-app-id>
+ALGOLIA_API_KEY=<algolia-api-key>
+ALGOLIA_INDEX_NAME='algolia-index-name'
+FIREBASE_DATABASE_URL=https://<my-firebase-database>.firebaseio.com
+```
 
 - Insert your Algolia API credentials, Algolia index name and Firebase database URL into this file.
 - Save this file into the same folder that you ran the `npm init` command in.
@@ -202,51 +208,52 @@ If all went well, you should see the example data imported into your database si
 ### 11.  Create a main index.js file
 - Go to [this link](PLACEHOLDER) to download the example ***index.js*** file needed for our Node.js application or copy and paste it from here:
 
-> const algoliasearch = require('algoliasearch');
-> const dotenv = require('dotenv');
-> const firebase = require('firebase');
->
-> // load values from the .env file in this directory into process.env
-> dotenv.load();
->
-> // configure firebase
-> firebase.initializeApp({
->   databaseURL: process.env.FIREBASE_DATABASE_URL,
-> });
-> const database = firebase.database();
->
-> // configure algolia
-> const algolia = algoliasearch(
->   process.env.ALGOLIA_APP_ID,
->   process.env.ALGOLIA_API_KEY
-> );
-> const index = algolia.initIndex(process.env.ALGOLIA_INDEX_NAME);
->
-> // Get all contacts from Firebase
-> database.ref('/my-firebase-database').once('value', my-firebase-database => {
->   // Build an array of all records to push to Algolia
->   const records = [];
->   contacts.forEach(contact => {
->     // get the key and data from the snapshot
->     const childKey = contact.key;
->     const childData = contact.val();
->     // We set the Algolia objectID as the Firebase .key
->     childData.objectID = childKey;
->     // Add object for indexing
->     records.push(childData);
->   });
->
->   // Add or update new objects
->   index
->     .saveObjects(records)
->     .then(() => {
->       console.log('Contacts imported into Algolia');
->     })
->     .catch(error => {
->       console.error('Error when importing contact into Algolia', error);
->       process.exit(1);
->     });
-> });
+```javascript
+const algoliasearch = require('algoliasearch');
+const dotenv = require('dotenv');
+const firebase = require('firebase');
+
+// load values from the .env file in this directory into process.env
+dotenv.load();
+
+// configure firebase
+firebase.initializeApp({
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+});
+const database = firebase.database();
+
+// configure algolia
+const algolia = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_API_KEY
+);
+const index = algolia.initIndex(process.env.ALGOLIA_INDEX_NAME);
+
+// Get all contacts from Firebase
+database.ref('/my-firebase-database').once('value', my-firebase-database => {
+  // Build an array of all records to push to Algolia
+  const records = [];
+  contacts.forEach(contact => {
+    // get the key and data from the snapshot
+    const childKey = contact.key;
+    const childData = contact.val();
+    // We set the Algolia objectID as the Firebase .key
+    childData.objectID = childKey;
+    // Add object for indexing
+    records.push(childData);
+  });
+  // Add or update new objects
+  index
+    .saveObjects(records)
+    .then(() => {
+      console.log('Contacts imported into Algolia');
+    })
+    .catch(error => {
+      console.error('Error when importing contact into Algolia', error);
+      process.exit(1);
+    });
+});
+```
 
 - Replace the two instances of `my-firebase-database` with the name of your Firebase database.
 - Save this file into the same folder that you ran the `npm init` command in.
