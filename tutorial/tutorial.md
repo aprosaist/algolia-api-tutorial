@@ -4,7 +4,7 @@
 
 Search is a critical part of the modern web.  There are countless ways to use it, but there's no need to reinvent the wheel when it comes to building this functionality into your website or web app.  There are some awesome APIs (in other words, services) out there that will help you focus on writing your code instead of worrying about search!  Today I'm going to show you how to use [**Algolia**](https://www.algolia.com/) and [**Firebase**](https://firebase.google.com/) to create a simple search application.
 
-![Algolia](algolia.png)
+![Algolia](/images/algolia.png)
 
 Here's the Algolia home page!  As we can see, it's used by some pretty big companies.  For the sake of this tutorial, we're going to be focusing on creating a simple website that will use the Algolia API for search.
 
@@ -20,9 +20,14 @@ After successfully creating your account, click on ***API Keys*** in the left-ha
 
 *Note:  Your Admin API Key is secret!  Don't share it publicly or post it online.*
 
+### 2.  Create an index
+Click on ***Indices*** in the left-hand column of your dashboard and then click the ***Create index*** button.  Enter a name for your index and then click the ***Create*** button.
+
+![Create an index](/images/createindex.png)
+
 ## Getting Started
 
-### 2.  Create an index.html file
+### 3.  Create an index.html file
 - Go to [this link](PLACEHOLDER) to download the example ***index.html*** file needed to create our search page or copy and paste it from here:
 
 ```html
@@ -95,47 +100,47 @@ After successfully creating your account, click on ***API Keys*** in the left-ha
 </html>
 ```
 
-### 3.  Insert your API credentials
-- Grab the API credentials from the ***API Keys*** section of your Algolia dashboard and insert them into the appropriate spots in the code (`YourApplicationID` and `YourAPIKey`).
+### 4.  Insert your API credentials and index name
+- Grab the API credentials from the ***API Keys*** section of your Algolia dashboard and insert them into the appropriate spots in the code (`YourApplicationID` and `YourAPIKey`).  Then, insert the index name you created earlier into the appropriate spot in the code (`your_index_name`).
 
-![Insert your API credentials](credentials.png)
+![Insert your API credentials](/images/credentials.png)
 
 - Save the ***index.html*** file.
 
-### 4.  Testing it out
+### 5.  Testing it out
 You can create a new [**GitHub**](https://github.com/) repository, upload your ***index.html*** file to it and enable GitHub Pages to create a website from it.  An even easier way to test is to use [**CodePen**](https://codepen.io/) by creating a new pen and pasting in the contents of your ***index.html*** file.
 
 If all went well, you should see a page similar to the following!
 
-![The example page](page.png)
+![The example page](/images/page.png)
 
 ## Connecting Firebase
 
-### 5.  Sign up for a Firebase account
+### 6.  Sign up for a Firebase account
 - Follow [this link](https://console.firebase.google.com/) to create your Firebase account!
 
 *Note:  Your Firebase account is tied to your Google account, so if you already have a Google account you can sign in with it.*
 
 Firebase offers a completely free account for development and testing purposes.  That's what we'll use for this tutorial.  Again, no credit card is required to get started.
 
-![Firebase](firebase.png)
+![Firebase](/images/firebase.png)
 
-### 6.  Create a new Firebase Application
+### 7.  Create a new Firebase Application
 - Click the ***Add project*** button in your Firebase dashboard.
 - Enter a name for it.
 - Click the ***Create project*** button.
 
-![Add project](addproject.png)
+![Add project](/images/addproject.png)
 
-### 7.  Create a new database
+### 8.  Create a new database
 - Click on ***Database*** in the left-hand column of your project dashboard.
 - Click on the ***Create database*** button.  
 - Choose the radio button to ***Start in test mode***.
 - Click the ***Enable*** button.
 
-![Create database](createdatabase.png)
+![Create database](/images/createdatabase.png)
 
-### 8.  Add your data
+### 9.  Add your data
 - Go to [this link](PLACEHOLDER) to download the example ***mlh_member_events.json*** file needed to create our database or copy and paste it from here:
 
 ```
@@ -174,17 +179,17 @@ Firebase offers a completely free account for development and testing purposes. 
 - Click on the dropdown next to ***Database*** and choose the ***Realtime Database*** option.
 - Click on the ***more*** button (the vertical ellipsis).
 - Click on ***Import JSON***.
-- Browse to the example JSON file you downloaded and click the ***Import*** button.
+- Browse to the ***mlh_member_events.json*** file you downloaded and click the ***Import*** button.
 
-![Import JSON](importjson.png)
+![Import JSON](/images/importjson.png)
 
 - Click on the ***Expand data*** button (the plus symbol).
 
 If all went well, you should see the example data imported into your database similar to the following!
 
-![Example data](exampledata.png)
+![Example data](/images/exampledata.png)
 
-### 9.  Create a Node.js application
+### 10.  Create a Node.js application
 *Note:  If you haven't used Node.js before, go to [**this link**](https://nodejs.org/en/download/) to install it on your system.*
 
 - Create a new folder.
@@ -192,7 +197,7 @@ If all went well, you should see the example data imported into your database si
 - Accept the defaults in the wizard (just keep pressing ***Enter***) to create a ***package.json*** file.
 - Run `npm install dotenv algoliasearch firebase --save` from the command line inside of the new folder.
 
-### 10.  Configure your environment
+### 11.  Configure your environment
 - Go to [this link](PLACEHOLDER) to download the example ***.env*** file needed to set up our environment or copy and paste it from here:
 
 ```
@@ -205,7 +210,7 @@ FIREBASE_DATABASE_URL=https://<my-firebase-database>.firebaseio.com
 - Insert your Algolia API credentials, Algolia index name and Firebase database URL into this file.
 - Save this file into the same folder that you ran the `npm init` command in.
 
-### 11.  Create a main index.js file
+### 12.  Create a main index.js file
 - Go to [this link](PLACEHOLDER) to download the example ***index.js*** file needed for our Node.js application or copy and paste it from here:
 
 ```javascript
@@ -259,20 +264,20 @@ database.ref('/my-firebase-database').once('value', my-firebase-database => {
 - Save this file into the same folder that you ran the `npm init` command in.
 - Run `node index.js` from the command line inside of the same folder.
 
-### 12.  Verify the synchronization
+### 13.  Verify the synchronization
 - Click on ***Indices*** in the left-hand column on your Algolia dashboard.
 
 If all went well, you should see the example data from Firebase synchronized similar to the following!
 
-![Indices](indices.png)
+![Indices](/images/indices.png)
 
-### 13.  Test the search
+### 14.  Test the search
 - Load your GitHub Page or your CodePen Pen that you created earlier.
 - Try typing in the search box.
 
 If all went well, you should see results from the example data similar to the following!
 
-![Test](test.png)
+![Test](/images/test.png)
 
 Congratulations!  You've built a simple search page using the Algolia API with Firebase as your database.  
 

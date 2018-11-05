@@ -46,8 +46,8 @@
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
     <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
     <script>
-      var client = algoliasearch('RD8TDVLHDP', 'bff26adad5864a1e1007c400fd0435f6');
-      var index = client.initIndex('mlh_member_events');
+      var client = algoliasearch('YourApplicationID', 'YourAPIKey');
+      var index = client.initIndex('your_index_name');
       autocomplete('#search-input', { hint: false }, [
         {
           source: autocomplete.sources.hits(index, { hitsPerPage: 5 }),
