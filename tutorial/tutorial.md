@@ -264,6 +264,8 @@ database.ref('/my-firebase-database').once('value', my-firebase-database => {
 - Save this file into the same folder that you ran the `npm init` command in.
 - Run `node index.js` from the command line inside of the same folder.
 
+## Verifying and Testing
+
 ### 13.  Verify the synchronization
 - Click on ***Indices*** in the left-hand column on your Algolia dashboard.
 
@@ -278,6 +280,64 @@ If all went well, you should see the example data from Firebase synchronized sim
 If all went well, you should see results from the example data similar to the following!
 
 ![Test](images/test.png)
+
+## Optional Steps
+
+### 15.  Sign up for a Heroku account
+- Follow [**this link**](https://signup.heroku.com/) to create your Heroku account!
+
+Heroku offers a completely free account for use with development and testing.  We can use this to host our Node.js application for synchronizing our Firebase database with our Algolia index.  Just like with Firebase and Algolia, no credit card is required to get started.
+
+![Heroku](images/heroku.png)
+
+### 16.  Modify index.js file
+- Remove everything from the bottom of the ***index.js*** file starting from the line beginning with `// Get all contacts from Firebase` and replace it with the following code:
+
+```javascript
+const contactsRef = database.ref('/my-firebase-database');
+contactsRef.on('child_added', addOrUpdateIndexRecord);
+contactsRef.on('child_changed', addOrUpdateIndexRecord);
+contactsRef.on('child_removed', deleteIndexRecord);
+
+function addOrUpdateIndexRecord(contact) {
+  // Get Firebase object
+  const record = contact.val();
+  // Specify Algolia's objectID using the Firebase object key
+  record.objectID = contact.key;
+  // Add or update object
+  index
+    .saveObject(record)
+    .then(() => {
+      console.log('Firebase object indexed in Algolia', record.objectID);
+    })
+    .catch(error => {
+      console.error('Error when indexing contact into Algolia', error);
+      process.exit(1);
+    });
+}
+
+function deleteIndexRecord(contact) {
+  // Get Algolia's objectID from the Firebase object key
+  const objectID = contact.key;
+  // Remove the object from Algolia
+  index
+    .deleteObject(objectID)
+    .then(() => {
+      console.log('Firebase object deleted from Algolia', objectID);
+    })
+    .catch(error => {
+      console.error('Error when deleting contact from Algolia', error);
+      process.exit(1);
+    });
+}
+```
+- Replace the instance of `my-firebase-database` with the name of your Firebase database.
+- Save the file.
+
+### 17.  Deploy to Heroku
+- Go to [**this link**](https://devcenter.heroku.com/articles/getting-started-with-nodejs) and follow the tutorial there to deploy your modified Node.js synchronization app to Heroku.
+
+![Heroku tutorial](images/herokututorial.png)
 
 Congratulations!  You've built a simple search page using the Algolia API with Firebase as your database.  
 
